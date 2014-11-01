@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Generate Reports</title>
+	<link rel="stylesheet" type="text/css" href="css/combined.css" />
+	<script src="js/combined.js"></script>
+	<link rel="stylesheet" href="css/date1.css">
+	<script src="js/jquery-1.9.1.js"></script>
+	<script src="js/jquery-ui.js"></script>
+	<link rel="stylesheet" href="css/style.css">
+
+
+<script type="text/javascript">
+  $(function() {
+    $( "#from" ).datepicker({
+      defaultDate: "+1w",
+      changeMonth: true,
+      numberOfMonths: 1,
+      onClose: function( selectedDate ) {
+        $( "#to" ).datepicker( "option", "minDate", selectedDate );
+      }
+    });
+    $( "#to" ).datepicker({
+      defaultDate: "+1w",
+      changeMonth: true,
+      numberOfMonths: 1,
+      onClose: function( selectedDate ) {
+        $( "#from" ).datepicker( "option", "maxDate", selectedDate );
+      }
+    });
+  });
+  </script>
+  <script type="text/javascript">
+function show() { document.getElementById('area').style.display = 'block'; }
+function hide() { document.getElementById('area').style.display = 'none'; }
+
+</script>
+
+
+	</head>
+	<body>
+
+<div class="header">
+</div>
+<div class="main">
+
+<div class="form" >
+
+
+<form name="gen" action = "settings1.html">
+<div class="legend" >Generate</div>
+<br>
+<div>&nbsp;</div>
+
+<input class="bg-green fg-white" type="submit" value="Generate" style="margin-right: 220px;">
+<div>&nbsp;</div>
+</form>
+
+</div>
+
+</div>
+</body>
+</html>

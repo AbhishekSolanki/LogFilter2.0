@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="description" content="Neon Admin Panel" />
+	<meta name="author" content="Laborator.co" />
+	
+	<title>Search By Website
+	</title>
+<link rel="stylesheet" type="text/css" href="css/jquery.dataTables.css">
+<script src="js/jquery-2.0.3.js"></script>
+<script src="js/jquery.dataTables.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#example').dataTable( {
+        "pagingType": "full_numbers"
+    } );
+} );
+</script>
+	
+
+	<link rel="stylesheet" href="css/jquery-ui-1.10.3.custom.min.css"  id="style-resource-1">
+	<link rel="stylesheet" href="css/entypo.css"  id="style-resource-2">
+	<link rel="stylesheet" href="css/css.css"  id="style-resource-3">
+	<link rel="stylesheet" href="css/bootstrap-min.css"  id="style-resource-4">
+	<link rel="stylesheet" href="css/neon-core-min.css"  id="style-resource-5">
+	<link rel="stylesheet" href="css/neon-theme-min.css"  id="style-resource-6">
+	<link rel="stylesheet" href="css/neon-forms-min.css"  id="style-resource-7">
+	<link rel="stylesheet" href="css/custom-min.css"  id="style-resource-8">
+
+	<script src="js/jquery-1.11.0.min.js"></script>
+<script>$.noConflict();</script>
+
+	<!--[if lt IE 9]><script src="http://demo.neontheme.com/assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+	
+	
+	<!-- TS1413185678: Neon - Responsive Admin Template created by Laborator -->
+</head>
+<body class="page-body  page-fade" data-url="http://demo.neontheme.com">
+
+<div class="page-container">	
+	
+	<div class="sidebar-menu">
+		
+			
+		<header class="logo-env" style="padding:20px">
+			
+			<!-- logo -->
+			<div class="logo">
+				<p style="font-size:30px">View Logs</p>
+			</div>
+			
+						<!-- logo collapse icon -->
+
+									
+			
+			<!-- open/close menu icon (do not remove if you want to enable menu on mobile devices) -->
+			<div class="sidebar-mobile-menu visible-xs">
+				<a href="#" class="with-animation"><!-- add class "with-animation" to support animation -->
+					<i class="entypo-menu"></i>
+				</a>
+			</div>
+			
+		</header>
+			<div id="logsCount" style="padding: 0 25px"></div><br>	
+		
+		
+				
+		
+				<ul id="main-menu" class="">
+										<li id="search">
+					<form method="get" action="">
+						<input type="text" name="q" class="search-input" placeholder="Search something..." />
+						<button type="submit"><i class="entypo-search"></i></button>
+					</form>
+				</li>
+		
+
+		<ul>
+	
+	
+			</ul>
+
+</li>
+
+	
+		</ul>
+
+</li>
+
+		
+
+		<ul>
+	
+	
+	
+	
+	
+			</ul>
+
+</li>
+
+	
+		</ul>
+
+</li>
+
+		
+
+		<ul>
+	
+		</ul>
+
+</li>
+
+	
+		</ul>
+						<div class="form-group">
+						
+						
+						
+						<div class="col-sm-5" style="margin-left: 10px;width: 200px;margin-top: 20px;margin-bottom: 36px;">
+							<select class="form-control" style="font-size: 16px;padding-top: 4px;">
+								<option>Top 10 </option>
+								<option>Top 20</option>
+								<option>Top 30</option>
+								<option>Top 50</option>
+								<option>Top 100</option>
+							</select>
+						</div>
+					</div>
+
+		<div class="form-group">
+						<label class="col-sm-3 control-label"></label>
+						
+						<div class="col-sm-5" style="margin-left: 10px;width: 250px;font-size: 16px;">
+							<div class="checkbox checkbox-replace" style="margin-bottom: 10px;">
+								<input type="checkbox" id="chk-1" checked>
+								<label>Users</label>
+							</div>
+							
+							<div class="checkbox checkbox-replace" style="margin-bottom: 10px;">
+								<input type="checkbox" id="chk-2">
+								<label>Mime</label>
+							</div>
+							
+							<div class="checkbox checkbox-replace" style="margin-bottom: 10px;">
+								<input type="checkbox" id="chk-3">
+								<label>Profile</label>
+							</div>
+							
+							<div class="checkbox checkbox-replace" style="margin-bottom: 10px;">
+								<input type="checkbox" id="chk-4">
+								<label>Status</label>
+							</div>
+							
+							<div class="checkbox checkbox-replace" style="margin-bottom: 10px;">
+								<input type="checkbox" id="chk-1" checked>
+								<label>Website</label>
+							</div>
+							<div class="checkbox checkbox-replace" style="margin-bottom: 10px;">
+								<input type="checkbox" id="chk-1" checked>
+								<label>Filter</label>
+							</div>
+							
+						</div>
+						
+						<div class="form-group">
+						
+						
+						
+						<div class="col-sm-5" style="margin-left: 10px;width: 200px;margin-top: 20px;">
+							<select class="form-control" style="font-size: 16px;padding-top: 4px" onchange="window.location='http://localhost:8000/' + this.value;">
+								<option value="searchByWebsite.html">By Website</option>
+								<option value="view.html">View Logs</option>
+								<option value="searchByUser.html">By User</option>
+								<option value="searchByData.html">By Data Used</option>
+								
+							</select>
+						</div>
+					</div>
+					</div>
+					
+				
+	</div>	
+	<div class="main-content">
+		
+<div class="row">
+
+	<!-- Profile Info and Notifications -->
+	
+	
+	<!-- Raw Links -->
+	
+	
+</div>
+  
+    <script>
+	$(document).ready(function(){
+	logsCount();
+	$( "#searchBox" ).bind('keypress', function(e) {
+		if(e.which==13 || e.keycode==13 && $("#searchBox")){
+			var value =  $("#searchBox").val();
+			if(value.length>0){
+			haha(value);
+			}
+		} else {
+			var values =  $("#searchBox").val();
+			if(values.length>=5){
+				haha(values);
+			}	
+		}
+		
+	});
+	
+	
+	});
+	
+	function haha(opt) {
+        $(function()
+        {
+            $.ajax({
+                url: "/cgi-bin/searchByWebsite.py",
+                type: "post",
+                datatype: "html",
+                data: {option: opt},
+                success: function(response){
+						console.log(response);
+                        $("#div").html(response);
+                        console.log("There is a response"); 
+                }
+            });
+        });
+}
+
+	function logsCount(opt) {
+        $(function()
+        {
+            $.ajax({
+                url: "/cgi-bin/count.py",
+                type: "post",
+                datatype: "html",
+                data: {option: opt},
+                success: function(response){
+                        $("#logsCount").html(response);
+                },
+				
+            });
+        });
+}
+
+    </script>
+<center><p style="font-size:20px">Enter your website name</p><input type="text" id="searchBox"></input></center>
+<hr />
+	<div id="div"></div>
+<!--   -->
+	<link rel="stylesheet" href="css/jquery-jvectormap-1.2.2.css"  id="style-resource-1">
+	<link rel="stylesheet" href="css/rickshaw.min.css"  id="style-resource-2">
+
+	<script src="js/main-gsap.js" id="script-resource-1"></script>
+	<script src="js/jquery-ui-1.10.3.minimal.min.js" id="script-resource-2"></script>
+	<script src="js/bootstrap.js" id="script-resource-3"></script>
+	<script src="js/joinable.js" id="script-resource-4"></script>
+	<script src="js/resizeable.js" id="script-resource-5"></script>
+	<script src="js/neon-api.js" id="script-resource-6"></script>
+	<script src="js/cookies.min.js" id="script-resource-7"></script>
+	<script src="js/jquery-jvectormap-1.2.2.min.js" id="script-resource-8"></script>
+	<script src="js/jquery-jvectormap-europe-merc-en.js" id="script-resource-9"></script>
+	<script src="js/jquery.sparkline.min.js" id="script-resource-10"></script>
+	<script src="js/d3.v3.js" id="script-resource-11"></script>
+	<script src="js/rickshaw.min.js" id="script-resource-12"></script>
+	<script src="js/raphael-min.js" id="script-resource-13"></script>
+	<script src="js/morris.min.js" id="script-resource-14"></script>
+	<script src="js/toastr.js" id="script-resource-15"></script>
+	<script src="js/neon-chat.js" id="script-resource-16"></script>
+	<script src="js/neon-custom.js" id="script-resource-17"></script>
+	<script src="js/neon-demo.js" id="script-resource-18"></script>
+	<script src="js/neon-skins.js" id="script-resource-19"></script>
+	<script src="js/jquery.linkify.min.js"></script>
+	
+</body>
+</html>

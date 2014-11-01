@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Generate Reports</title>
+	<link rel="stylesheet" type="text/css" href="css/combined.css" />
+	<script src="js/combined.js"></script>
+	<link rel="stylesheet" href="css/date1.css">
+	<script src="js/jquery-1.9.1.js"></script>
+	<script src="js/jquery-ui.js"></script>
+	<link rel="stylesheet" href="css/style.css">
+
+
+<script type="text/javascript">
+  $(function() {
+    $( "#from" ).datepicker({
+      defaultDate: "+1w",
+      changeMonth: true,
+      numberOfMonths: 1,
+      onClose: function( selectedDate ) {
+        $( "#to" ).datepicker( "option", "minDate", selectedDate );
+      }
+    });
+    $( "#to" ).datepicker({
+      defaultDate: "+1w",
+      changeMonth: true,
+      numberOfMonths: 1,
+      onClose: function( selectedDate ) {
+        $( "#from" ).datepicker( "option", "maxDate", selectedDate );
+      }
+    });
+  });
+  </script>
+  <script type="text/javascript">
+function show() { document.getElementById('area').style.display = 'block'; }
+function hide() { document.getElementById('area').style.display = 'none'; }
+
+</script>
+
+
+	</head>
+	<body>
+
+<div class="header">
+</div>
+<div class="main">
+
+<div class="form" >
+
+
+<form name="gen" action = "/cgi-bin/generate.py" method = "post">
+<div class="legend" >View</div>
+<br>
+<div>&nbsp;</div>
+<label for="Select" class="label">Select Date Range:</label>
+<div>&nbsp;</div>
+<input type="radio" id="complete" name="select" value="complete" onclick="hide();" required />
+<label for="radio-complete" class="label">Complete </label>
+<div>&nbsp;</div>
+<input type="radio" id="bydate" name="select" value="bydate" onclick="show();" required/>
+<label for="radio-bydate" class="label">By Date </label>
+<div id='area' style="display: none;">
+<div>&nbsp;</div> <div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div>
+<label for="radio-complete" class="label">From</label>
+<input type="text"   id="from" placeholder="From Date" name="from" style="width:230px" >
+<div>&nbsp;</div>
+<label for="radio-complete" class="label">To </label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="text" id="to" placeholder="To Date" name="to" style="width:230px" >
+<div>&nbsp;</div>
+</div>
+<div>&nbsp;</div>
+<input class="bg-green fg-white" type="submit" value="Generate" style="margin-right: 220px;">
+<div>&nbsp;</div>
+</form>
+
+</div>
+
+</div>
+</body>
+</html>

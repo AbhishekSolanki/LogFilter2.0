@@ -1,0 +1,111 @@
+<div class="row">
+	<div class="col-sm-8">
+	
+		<div class="panel panel-primary" id="charts_env">
+		
+			<div class="panel-heading">
+				<div class="panel-title">Websites</div>
+				
+				<div class="panel-options">
+					<ul class="nav nav-tabs">
+						<li class=""><a href="#area-chart" data-toggle="tab">Area Chart</a></li>
+						<li class="active"><a href="#line-chart" data-toggle="tab">Line Charts</a></li>
+						<li class=""><a href="#pie-chart" data-toggle="tab">Pie Chart</a></li>
+					</ul>
+				</div>
+			</div>
+	
+			<div class="panel-body">
+			
+				<div class="tab-content">
+				
+					<div class="tab-pane" id="area-chart">							
+						<div id="area-chart-demo" class="morrischart" style=row"height: 300px"></div>
+					</div>
+					
+					<div class="tab-pane active" id="line-chart">
+						<div id="line-chart-demo" class="morrischart" style="height: 300px"></div>
+					</div>
+					
+					<div class="tab-pane" id="pie-chart">
+						<div id="donut-chart-demo" class="morrischart" style="height: 300px;"></div>
+					</div>
+					
+				</div>
+				
+			</div>
+
+			
+		</div>	
+
+
+	</div>
+
+	<div class="col-sm-4">
+<table class="table table-bordered datatable" id="table-1">
+	<thead>
+		<tr>
+			<th data-hide="phone">Websites</th>
+			<th>Browser</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr class="odd gradeX">
+			<td>Trident</td>
+			<td>Internet Explorer 4.0</td>
+			
+		</tr>
+		<tr class="even gradeC">
+			<td>Trident</td>
+			<td>Internet Explorer 5.0</td>
+			
+		</tr>
+		<tr class="odd gradeA">
+			<td>Trident</td>
+			<td>Internet Explorer 5.5</td>
+			
+		</tr>
+		<tr class="even gradeA">
+			<td>Trident</td>
+			<td>Internet Explorer 6</td>
+			
+		</tr>
+		<tr class="odd gradeA">
+			<td>Trident</td>
+			<td>Internet Explorer 7</td>
+			
+		</tr>
+	<tr class="odd gradeX">
+			<td>Trident</td>
+			<td>Internet Explorer 4.0</td>
+			
+		</tr>
+		<tr class="even gradeC">
+			<td>Trident</td>
+			<td>Internet Explorer 5.0</td>
+			
+		</tr>
+		<tr class="odd gradeA">
+			<td>Trident</td>
+			<td>Internet Explorer 5.5</td>
+			
+		</tr>
+		<tr class="even gradeA">
+			<td>Trident</td>
+			<td>Internet Explorer 6</td>
+			
+		</tr>
+		<tr class="odd gradeA">
+			<td>Trident</td>
+			<td>Internet Explorer 7</td>
+			
+		</tr>	
+		
+	</tbody>
+	
+</table>
+
+		
+
+	</div>
+</div>s

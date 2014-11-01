@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="description" content="Neon Admin Panel" />
+	<meta name="author" content="Laborator.co" />
+	
+	<title>View Logs</title>
+	
+
+	<link rel="stylesheet" href="css/jquery-ui-1.10.3.custom.min.css"  id="style-resource-1">
+	<script src="/static/jquery-2.0.3.js"></script>
+	<link rel="stylesheet" href="css/entypo.css"  id="style-resource-2">
+	<link rel="stylesheet" href="css/css.css"  id="style-resource-3">
+	<link rel="stylesheet" href="css/bootstrap-min.css"  id="style-resource-4">
+	<link rel="stylesheet" href="css/neon-core-min.css"  id="style-resource-5">
+	<link rel="stylesheet" href="css/neon-theme-min.css"  id="style-resource-6">
+	<link rel="stylesheet" href="css/neon-forms-min.css"  id="style-resource-7">
+	<link rel="stylesheet" href="css/custom-min.css"  id="style-resource-8">
+
+	<script src="js/jquery-1.11.0.min.js"></script>
+<script>$.noConflict();</script>
+
+	<!--[if lt IE 9]><script src="http://demo.neontheme.com/assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+	
+	
+	<!-- TS1413185678: Neon - Responsive Admin Template created by Laborator -->
+	<script src="js/jquery.dataTables.min.js"></script>
+	<script>
+$(document).ready(function() {
+    
+	} );
+</script>
+	
+	<script>
+	$(document).ready(function(){
+	
+	
+	logsCount();
+	checkboxSend("all");
+	
+		var cbUsers = 0;
+		var cbMime = 0;
+		var cbProfiles = 1;
+		var cbStatus =1;
+		var cbFilters = 1;
+		var cbWebsites = 0;
+		
+		$('input[name=checkbox]').click(function() { 
+			
+			if(!$("#cb_users").is(":checked") && !$("#cb_mime").is(":checked") && !$("#cb_profiles").is(":checked") && !$("#cb_status").is(":checked") && !$("#cb_filters").is(":checked") && !$("#cb_websites").is(":checked"))
+			{
+				$("#graphs").html("<div id='allUnchecked'><center><h3><b>Oops </b>nothing to display here :-(</h3></center></div>");
+			} else {
+				$("#allUnchecked").remove();
+			}
+			if($("#cb_users").is(":checked")) {
+				if(cbUsers==1){
+				checkboxSend("users");
+				cbUsers=0;
+				}
+			} 
+			else {
+				
+				$("#users_graph").remove();
+				cbUsers=1
+			}
+			
+			if($("#cb_mime").is(":checked")){
+				if(cbMime==1){
+				
+				
+				checkboxSend("mime");
+				cbMime=0;
+				}
+			} else {
+				
+				$("#mime_graph").remove();
+				cbMime=1;
+			}
+			
+			if($("#cb_profiles").is(":checked")){
+				if(cbProfiles==1){
+				
+				
+				checkboxSend("profiles");
+				cbProfiles=0;
+				}
+			} else {
+				
+				$("#profiles_graph").remove();
+				cbProfiles=1;
+			}
+			if($("#cb_status").is(":checked")){
+				if(cbStatus==1){
+				
+				checkboxSend("status");
+				cbStatus=0;
+				}
+			} else {
+				
+				$("#status_graph").remove();
+				cbStatus=1;
+			}
+			if($("#cb_filters").is(":checked")){
+				if(cbFilters==1){
+				
+				checkboxSend("filters");
+				cbFilters=0;
+				}
+			} else {
+				
+				$("#filters_graph").remove();
+				cbFilters=1;
+			}
+			if($("#cb_websites").is(":checked")){
+				if(cbWebsites==1){
+				
+				checkboxSend("websites");
+				cbWebsites=0;
+				}
+			} else {
+				
+				$("#websites_graph").remove();
+				cbWebsites=1;
+			}
+			
+	});
+	
+	
+
+		
+	$("#top").change(function () {
+	
+	// 0 unchecked , 1 checked flag for checkboxes
+        var opt = this.value;
+		var cb_users = 0;
+		var cb_mime = 0;
+		var cb_profiles = 0;
+		var cb_status =0;
+		var cb_filters = 0;
+		var cb_websites = 0;
+		if($("#cb_users").is(":checked")){
+			console.log("user checked");
+			cb_users = 1;
+		}
+		if($("#cb_mime").is(":checked")){
+			console.log("mime checked");
+			cb_mime = 1;
+		} 
+		if($("#cb_profiles").is(":checked")){
+			cb_profiles = 1;
+		} 
+		if($("#cb_status").is(":checked")){
+			cb_status = 1;
+		} 
+		if($("#cb_filters").is(":checked")){
+			cb_filters = 1;
+		} 
+		if($("#cb_websites").is(":checked")){
+			cb_websites = 1;
+		} 
+		
+		if(cb_users==0 && cb_mime==0 && cb_profiles==0 && cb_status==0 && cb_filters==0 && cb_websites==0){
+				setTimeout(function()
+	{			
+		var opts = {
+			"closeButton": true,
+			"debug": false,
+			"positionClass": rtl() || public_vars.$pageContainer.hasClass('right-sidebar') ? "toast-top-left" : "toast-top-right",
+			"toastClass": "black",
+			"onclick": null,
+			"showDuration": "300",
+			"hideDuration": "1000",
+			"timeOut": "5000",
+			"extendedTimeOut": "1000",
+			"showEasing": "swing",
+			"hideEasing": "linear",
+			"showMethod": "fadeIn",
+			"hideMethod": "fadeOut"
+		};
+
+		toastr.warning("Please select atleast one Filter !", opts);
+	}, 3);
+		} else {
+			send(opt,cb_users,cb_mime,cb_profiles,cb_status,cb_filters,cb_websites);
+		}
+	});
+	
+	
+	
+	function send(opt,cb_users,cb_mime,cb_profiles,cb_status,cb_filters,cb_websites) {
+        $(function()
+        {
+            $.ajax({
+                url: "/cgi-bin/process_form.py",
+                type: "post",
+                datatype: "html",
+                data: {caller:"dropdown",option: opt,users:cb_users,mime:cb_mime,profiles:cb_profiles,status:cb_status,filters:cb_filters,websites:cb_websites},
+                success: function(response){
+				$("#users_graph").remove();
+							$("#mime_graph").remove();
+							$("#profiles_graph").remove();
+							$("#status_graph").remove();
+							$("#filters_graph").remove();
+							$("#websites_graph").remove();
+                        $("#graphs").append(response);
+                        console.log("There is a response");
+							
+							
+                }
+            });
+        });
+		}
+		
+		function checkboxSend(chkbox) {
+		var top_value=$("#top").val();
+        $(function()
+        {
+            $.ajax({
+                url: "/cgi-bin/process_form.py",
+                type: "post",
+                datatype: "html",
+                data: {caller:"checkbox",option: chkbox,topValue: top_value},
+                success: function(response){
+                        $("#graphs").append(response);
+                        console.log("There is a response in cb"); 
+                }
+            });
+        });
+		}
+		
+});
+	function logsCount(opt) {
+        $(function()
+        {
+            $.ajax({
+                url: "/cgi-bin/count.py",
+                type: "post",
+                datatype: "html",
+                data: {option: opt},
+                success: function(response){
+                        $("#logsCount").html(response);
+setTimeout(function()
+	{			
+		var opts = {
+			"closeButton": true,
+			"debug": false,
+			"positionClass": rtl() || public_vars.$pageContainer.hasClass('right-sidebar') ? "toast-top-left" : "toast-top-right",
+			"toastClass": "black",
+			"onclick": null,
+			"showDuration": "300",
+			"hideDuration": "1000",
+			"timeOut": "5000",
+			"extendedTimeOut": "1000",
+			"showEasing": "swing",
+			"hideEasing": "linear",
+			"showMethod": "fadeIn",
+			"hideMethod": "fadeOut"
+		};
+
+		toastr.success("Everything looks fine !", opts);
+	}, 3000);
+                },
+				
+            });
+        });
+}
+    </script>
+	
+</head>
+<body class="page-body  page-fade" data-url="http://demo.neontheme.com">
+
+<div class="page-container">	
+	
+	<div class="sidebar-menu">
+		
+			
+		<header class="logo-env" style="padding:20px">
+			
+			<!-- logo -->
+			<div class="logo">
+				<p style="font-size:30px">View Logs</p>
+			</div>
+			
+						<!-- logo collapse icon -->
+									
+			
+			<!-- open/close menu icon (do not remove if you want to enable menu on mobile devices) -->
+			<div class="sidebar-mobile-menu visible-xs">
+				<a href="#" class="with-animation"><!-- add class "with-animation" to support animation -->
+					<i class="entypo-menu"></i>
+				</a>
+			</div>
+			
+		</header>
+				
+		<div id="logsCount" style="padding: 0 25px"></div><br>
+		<div id="div2"></div>
+		
+				
+		
+				<ul id="main-menu" class="">
+										<li id="search">
+					<form method="get" action="">
+						<input type="text" name="q" class="search-input" placeholder="Search something..." />
+						<button type="submit"><i class="entypo-search"></i></button>
+					</form>
+				</li>
+		
+
+		<ul>
+	
+	
+			</ul>
+
+</li>
+
+	
+		</ul>
+
+</li>
+
+		
+
+		<ul>
+	
+	
+	
+	
+	
+			</ul>
+
+</li>
+
+	
+		</ul>
+
+</li>
+
+		
+
+		<ul>
+	
+		</ul>
+
+</li>
+
+	
+		</ul>
+						<div class="form-group">
+						
+						
+						
+						<div class="col-sm-5" style="margin-left: 10px;width: 200px;margin-top: 20px;margin-bottom: 36px;">
+							<select  id="top"  class="form-control" style="font-size: 16px;padding-top: 4px;">
+								<option value="10">Top 10 </option>
+								<option value="20">Top 20</option>
+								<option value="30">Top 30</option>
+								<option value="50">Top 50</option>
+								<option value="100">Top 100</option>
+							</select>
+						</div>
+					</div>
+
+		<div class="form-group">
+						<label class="col-sm-3 control-label"></label>
+						
+						<div class="col-sm-5" style="margin-left: 10px;width: 250px;font-size: 16px;">
+							<div class="checkbox checkbox-replace" style="margin-bottom: 10px;">
+								<input type="checkbox" id="cb_users" checked name="checkbox">
+								<label>Users</label>
+							</div>
+							
+							<div class="checkbox checkbox-replace" style="margin-bottom: 10px;">
+								<input type="checkbox" id="cb_mime" checked name="checkbox">
+								<label>Mime</label>
+							</div>
+							
+							<div class="checkbox checkbox-replace" style="margin-bottom: 10px;">
+								<input type="checkbox" id="cb_profiles" name="checkbox">
+								<label>Profile</label>
+							</div>
+							
+							<div class="checkbox checkbox-replace" style="margin-bottom: 10px;">
+								<input type="checkbox" id="cb_status" name="checkbox">
+								<label>Status</label>
+							</div>
+							
+							<div  class="checkbox checkbox-replace" style="margin-bottom: 10px;">
+								<input type="checkbox" id="cb_filters" name="checkbox">
+								<label>Filters</label>
+							</div>
+							<div class="checkbox checkbox-replace" style="margin-bottom: 10px;">
+								<input type="checkbox" id="cb_websites" checked name="checkbox">
+								<label>Websites</label>
+							</div>
+							<!-- <div class="checkbox checkbox-replace" style="margin-bottom: 10px;">
+								<input type="checkbox" id="chk-1" checked>
+								<label>Checkbox</label>
+							</div> -->
+							
+						</div>
+						
+						<div class="form-group">
+						
+						
+						
+						<div class="col-sm-5" style="margin-left: 10px;width: 200px;margin-top: 20px;">
+							<select class="form-control" style="font-size: 16px;padding-top: 4px;" onchange="window.location='http://localhost:8000/' + this.value;">
+								<option value="#">Search</option>
+								<option value="searchByUser.html">By User</option>
+								<option value="searchByWebsite.html">By Website</option>
+								<option value="searchByData">By Data Used</option>
+								
+							</select>
+						</div>
+					</div>
+					</div>
+					
+				
+	</div>	
+	<div class="main-content">
+		
+<div class="row">
+	
+	<!-- Profile Info and Notifications -->
+	
+	
+	<!-- Raw Links -->
+	
+	
+</div>
+<center><p style="font-size:40px">Home</p></center>
+<hr />
+<div id="graphs">
+<div id ="users_graph_rm">
+<script type="text/javascript">
+jQuery(document).ready(function($) 
+{
+	// Sample Toastr Notification
+
+	
+	
+	// Sparkline Charts
+	$('.inlinebar').sparkline('html', {type: 'bar', barColor: '#ff6264'} );
+	$('.inlinebar-2').sparkline('html', {type: 'bar', barColor: '#445982'} );
+	$('.inlinebar-3').sparkline('html', {type: 'bar', barColor: '#00b19d'} );
+	$('.bar').sparkline([ [1,4], [2, 3], [3, 2], [4, 1] ], { type: 'bar' });
+	$('.pie').sparkline('html', {type: 'pie',borderWidth: 0, sliceColors: ['#3d4554', '#ee4749','#00b19d']});
+	$('.linechart').sparkline();
+	$('.pageviews').sparkline('html', {type: 'bar', height: '30px', barColor: '#ff6264'} );
+	$('.uniquevisitors').sparkline('html', {type: 'bar', height: '30px', barColor: '#00b19d'} );
+	
+	
+	$(".monthly-sales").sparkline([1,2,3,5,6,7,2,3,3,4,3,5,7,2,4,3,5,4,5,6,3,2], {
+		type: 'bar',
+		barColor: '#485671',
+		height: '80px',
+		barWidth: 10,
+		barSpacing: 2
+	});	
+	
+	
+	// JVector Maps
+	var map = $("#map");
+	
+	map.vectorMap({
+		map: 'europe_merc_en',
+		zoomMin: '3',
+		backgroundColor: '#383f47',
+		focusOn: { x: 0.5, y: 0.8, scale: 3 }
+	});		
+	
+			
+	
+	// Line Charts
+	var line_chart_demo = $("#line-chart-demo");
+	
+	var line_chart = Morris.Line({
+		element: 'line-chart-demo',
+		data: [
+			{ y: '2006', a: 100, b: 90 },
+			{ y: '2007', a: 75,  b: 65 },
+			{ y: '2008', a: 50,  b: 40 },
+			{ y: '2009', a: 75,  b: 65 },
+			{ y: '2010', a: 50,  b: 40 },
+			{ y: '2011', a: 75,  b: 65 },
+			{ y: '2012', a: 100, b: 90 }
+		],
+		xkey: 'y',
+		ykeys: ['a', 'b'],
+		labels: ['October 2013', 'November 2013'],
+		redraw: true
+	});
+	
+	line_chart_demo.parent().attr('style', '');
+	
+	
+	// Donut Chart
+	var donut_chart_demo = $("#donut-chart-demo");
+	
+	donut_chart_demo.parent().show();
+	
+	var donut_chart = Morris.Donut({
+		element: 'donut-chart-demo',
+		data: [
+			{label: "Download Sales", value: getRandomInt(10,50)},
+			{label: "In-Store Sales", value: getRandomInt(10,50)},
+			{label: "Mail-Order Sales", value: getRandomInt(10,50)}
+		],
+		colors: ['#707f9b', '#455064', '#242d3c']
+	});
+	
+	donut_chart_demo.parent().attr('style', '');
+	
+	
+	// Area Chart
+	var area_chart_demo = $("#area-chart-demo");
+	
+	area_chart_demo.parent().show();
+	
+	var area_chart = Morris.Area({
+		element: 'area-chart-demo',
+		data: [
+			{ y: '2006', a: 100, b: 90 },
+			{ y: '2007', a: 75,  b: 65 },
+			{ y: '2008', a: 50,  b: 40 },
+			{ y: '2009', a: 75,  b: 65 },
+			{ y: '2010', a: 50,  b: 40 },
+			{ y: '2011', a: 75,  b: 65 },
+			{ y: '2012', a: 100, b: 90 }
+		],
+		xkey: 'y',
+		ykeys: ['a', 'b'],
+		labels: ['Series A', 'Series B'],
+		lineColors: ['#303641', '#576277']
+	});
+	
+	area_chart_demo.parent().attr('style', '');
+	
+	
+	
+	
+	// Rickshaw
+	var seriesData = [ [], [] ];
+	
+	var random = new Rickshaw.Fixtures.RandomData(50);
+	
+	for (var i = 0; i < 50; i++) 
+	{
+		random.addData(seriesData);
+	}
+	
+	
+	
+
+	
+	
+	
+	
+	setInterval( function() {
+		random.removeData(seriesData);
+		random.addData(seriesData);
+		//graph.update();
+	
+	}, 500 );
+});
+
+
+
+function getRandomInt(min, max) 
+{
+	return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+</script>
+<br />
+<div class="row">
+	<div class="col-sm-8">
+	
+		<div class="panel panel-primary" id="charts_env">
+		
+			<div class="panel-heading">
+				<div class="panel-title">Users</div>
+				
+				<div class="panel-options">
+					<ul class="nav nav-tabs">
+						<li class=""><a href="#area-chart" data-toggle="tab">Area Chart</a></li>
+						<li class="active"><a href="#line-chart" data-toggle="tab">Line Charts</a></li>
+						<li class=""><a href="#pie-chart" data-toggle="tab">Pie Chart</a></li>
+					</ul>
+				</div>
+			</div>
+	
+			<div class="panel-body">
+			
+				<div class="tab-content">
+				
+					<div class="tab-pane" id="area-chart">							
+						<div id="area-chart-demo" class="morrischart" style=row"height: 300px"></div>
+					</div>
+					
+					<div class="tab-pane active" id="line-chart">
+						<div id="line-chart-demo" class="morrischart" style="height: 300px"></div>
+					</div>
+					
+					<div class="tab-pane" id="pie-chart">
+						<div id="donut-chart-demo" class="morrischart" style="height: 300px;"></div>
+					</div>
+					
+				</div>
+				
+			</div>
+
+			
+		</div>	
+
+
+	</div>
+
+	<div class="col-sm-4">
+<table class="table table-bordered datatable" id="table-1">
+	<thead>
+		<tr>
+			<th data-hide="phone">Websites</th>
+			<th>Browser</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr class="odd gradeX">
+			<td>Trident</td>
+			<td>Internet Explorer 4.0</td>
+			
+		</tr>
+		<tr class="even gradeC">
+			<td>Trident</td>
+			<td>Internet Explorer 5.0</td>
+			
+		</tr>
+		<tr class="odd gradeA">
+			<td>Trident</td>
+			<td>Internet Explorer 5.5</td>
+			
+		</tr>
+		<tr class="even gradeA">
+			<td>Trident</td>
+			<td>Internet Explorer 6</td>
+			
+		</tr>
+		<tr class="odd gradeA">
+			<td>Trident</td>
+			<td>Internet Explorer 7</td>
+			
+		</tr>
+	<tr class="odd gradeX">
+			<td>Trident</td>
+			<td>Internet Explorer 4.0</td>
+			
+		</tr>
+		<tr class="even gradeC">
+			<td>Trident</td>
+			<td>Internet Explorer 5.0</td>
+			
+		</tr>
+		<tr class="odd gradeA">
+			<td>Trident</td>
+			<td>Internet Explorer 5.5</td>
+			
+		</tr>
+		<tr class="even gradeA">
+			<td>Trident</td>
+			<td>Internet Explorer 6</td>
+			
+		</tr>
+		<tr class="odd gradeA">
+			<td>Trident</td>
+			<td>Internet Explorer 7</td>
+			
+		</tr>	
+		
+	</tbody>
+	
+</table>
+
+		
+
+	</div>
+</div>
+</div> <!-- users div -->
+</div> <!-- Graphs Division Tag -->
+
+<br />
+
+
+<br />
+
+
+<script type="text/javascript">
+	// Code used to add Todo Tasks
+	jQuery(document).ready(function($)
+	{
+	$("#users_graph_rm").remove();
+		var $todo_tasks = $("#todo_tasks");
+		
+		$todo_tasks.find('input[type="text"]').on('keydown', function(ev)
+		{
+			if(ev.keyCode == 13)
+			{
+				ev.preventDefault();
+				
+				if($.trim($(this).val()).length)
+				{
+					var $todo_entry = $('<li><div class="checkbox checkbox-replace color-white"><input type="checkbox" /><label>'+$(this).val()+'</label></div></li>');
+					$(this).val('');
+					
+					$todo_entry.appendTo($todo_tasks.find('.todo-list'));
+					$todo_entry.hide().slideDown('fast');
+					replaceCheckboxes();
+				}
+			}
+		});
+	});
+</script>
+
+
+<!-- Chat Histories -->
+
+
+
+
+
+<!-- Chat Histories -->
+
+<!-- Sample Modal (Default skin) -->
+
+
+<!-- Sample Modal (Skin inverted) -->
+
+	<link rel="stylesheet" href="css/jquery-jvectormap-1.2.2.css"  id="style-resource-1">
+	<link rel="stylesheet" href="css/rickshaw.min.css"  id="style-resource-2">
+
+	<script src="js/main-gsap.js" id="script-resource-1"></script>
+	<script src="js/jquery-ui-1.10.3.minimal.min.js" id="script-resource-2"></script>
+	<script src="js/bootstrap.js" id="script-resource-3"></script>
+	<script src="js/joinable.js" id="script-resource-4"></script>
+	<script src="js/resizeable.js" id="script-resource-5"></script>
+	<script src="js/neon-api.js" id="script-resource-6"></script>
+	<script src="js/cookies.min.js" id="script-resource-7"></script>
+	<script src="js/jquery-jvectormap-1.2.2.min.js" id="script-resource-8"></script>
+	<script src="js/jquery-jvectormap-europe-merc-en.js" id="script-resource-9"></script>
+	<script src="js/jquery.sparkline.min.js" id="script-resource-10"></script>
+	<script src="js/d3.v3.js" id="script-resource-11"></script>
+	<script src="js/rickshaw.min.js" id="script-resource-12"></script>
+	<script src="js/raphael-min.js" id="script-resource-13"></script>
+	<script src="js/morris.min.js" id="script-resource-14"></script>
+	<script src="js/toastr.js" id="script-resource-15"></script>
+	<script src="js/neon-chat.js" id="script-resource-16"></script>
+	<script src="js/neon-custom.js" id="script-resource-17"></script>
+	<script src="js/neon-demo.js" id="script-resource-18"></script>
+	<script src="js/neon-skins.js" id="script-resource-19"></script>
+	
+	
+</body>
+</html>
