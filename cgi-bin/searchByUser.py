@@ -25,8 +25,15 @@ $(document).ready(function() {
 
 		} );
 		$('#example_length').remove();
+    $('#example1').dataTable( {
+        "pagingType": "full_numbers"
+
+		} );
+		$('#example1_length').remove();
 	} );
+	
 </script>
+<b><big><u>List of websites visited by """+search_str+"""</u></big>
 <table id="example" class="display" cellspacing="0" width="10%">
         <thead>
             <tr>
@@ -38,7 +45,23 @@ $(document).ready(function() {
     print abc1
     for i in abc:
         print """<tr><td>"""+str(i['_id'])+"""</td><td>"""+str(+i['count'])+"""</td></tr>        """
+    end="</tbody></table><br><br><br><b><big><u>Websites blocked</u></big></b>"""
+    print end
+    table2="""<table id="example1" class="display" cellspacing="0" width="10%">
+        <thead>
+            <tr>
+                <th>Blocked Website</th>
+                <th>Clicks</th>
+                
+            </tr>
+        </thead><tbody>"""
+    print table2
+    result1=conn.db.aggregate([{'$match':{'$and':[{'username':{'$regex':search_str}},{'filter_name':{'$ne':"- -"}}]}},{'$group':{'_id':"$method_url",'count':{'$sum':1}}},{'$sort':{'count':-1}}])
+    blocked=result1['result']
+    for i in blocked:
+        print """<tr><td>"""+str(i['_id'])+"""</td><td>"""+str(+i['count'])+"""</td></tr>        """
     end="</tbody></table>"""
     print end
+
 	
         
