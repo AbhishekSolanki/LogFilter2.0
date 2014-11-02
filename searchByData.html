@@ -71,7 +71,7 @@ $(document).ready(function() {
 			</div>
 			
 		</header>
-				
+			<div id="logsCount" style="padding: 0 25px"></div><br>	
 		
 		
 				
@@ -179,15 +179,22 @@ $(document).ready(function() {
 						
 						
 						<div class="col-sm-5" style="margin-left: 10px;width: 200px;margin-top: 20px;">
-							<select class="form-control" style="font-size: 16px;padding-top: 4px;">
-								<option>All</option>
-								<option>By User</option>
-								<option>By Website</option>
-								<option>By Data Used</option>
+			<select class="form-control" style="font-size: 16px;padding-top: 4px;" id="menu">
+								<option value="view.html">View Logs</option>
+								<option value="searchByUser.html">By User</option>
+								<option value="searchByWebsite.html">By Website</option>
+								<option value="searchByData.html" selected="selected">By Data Used</option>
 								
 							</select>
 						</div>
-					</div>
+						<script type="text/javascript">
+     var urlmenu = document.getElementById( 'menu' );
+     urlmenu.onchange = function() {
+          window.open( this.options[ this.selectedIndex ].value, '_self');
+     };
+    </script>
+
+	</div>
 					</div>
 					
 				
@@ -206,42 +213,72 @@ $(document).ready(function() {
   
     <script>
 	$(document).ready(function(){
-	$( "#searchBox" ).bind('keypress', function(e) {
-		if(e.which==13 || e.keycode==13 && $("#searchBox")){
-			var value =  $("#searchBox").val();
-			if(value.length>0){
-			haha(value);
+	logsCount();
+	});
+	
+	function haha() {
+        $(function()
+        {
+		console.log("okay");
+		var varFrom = $('#from').val();
+		var varTo = $('#to').val();
+		if(parseInt(varTo)>parseInt(varFrom)){
+            $.ajax({
+                url: "/cgi-bin/searchByData.py",
+                type: "post",
+                datatype: "html",
+                data: {from: varFrom,to: varTo},
+                success: function(response){
+						console.log(response);
+                        $("#div").html(response);
+                }
+            });
+			} else {
+			setTimeout(function()
+	{			
+		var opts = {
+			"closeButton": true,
+			"debug": false,
+			"positionClass": rtl() || public_vars.$pageContainer.hasClass('right-sidebar') ? "toast-top-left" : "toast-top-right",
+			"toastClass": "black",
+			"onclick": null,
+			"showDuration": "300",
+			"hideDuration": "1000",
+			"timeOut": "5000",
+			"extendedTimeOut": "1000",
+			"showEasing": "swing",
+			"hideEasing": "linear",
+			"showMethod": "fadeIn",
+			"hideMethod": "fadeOut"
+		};
+
+		toastr.error("Invalid Input !", opts);
+	}, 300);
+			
 			}
-		} else {
-			var values =  $("#searchBox").val();
-			if(values.length>=5){
-				haha(values);
-			}	
-		}
-		
-	});
-	
-	
-	});
-	
-	function haha(opt) {
+        });
+}
+
+function logsCount(opt) {
         $(function()
         {
             $.ajax({
-                url: "/cgi-bin/searchBox.py",
+                url: "/cgi-bin/count.py",
                 type: "post",
                 datatype: "html",
                 data: {option: opt},
                 success: function(response){
-						console.log(response);
-                        $("#div").html(response);
-                        console.log("There is a response"); 
-                }
+                        $("#logsCount").html(response);
+                },
+				
             });
         });
 }
+
     </script>
-<center><p style="font-size:20px">Enter your slider here</p><input type="text" id="searchBox"></input></center>
+<center><p style="font-size:20px"></p><b>From</b>&nbsp;&nbsp;&nbsp;<input type="text" id="from" placeholder="Enter in MB">
+</input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>To</b>&nbsp;&nbsp;&nbsp;<input type="text" id="to" placeholder="Enter in MB"></center><br>
+<center><input type="button" value="show" id="show" onClick="haha()"></center>
 <hr />
 	<div id="div"></div>
 <!--   -->

@@ -51,7 +51,7 @@ if os.path.exists(location):
         filter_profile=temp.group("filter_profile")
         interface=temp.group("interface")
     
-        conn.db.insert({'id1':id1,'elapsed_time':elapsed_time,'client_ip':client_ip,'username':username,'date':date,'time':time,'httpstatus':httpstatus,'byte_transferred':byte_transferred,'mime':mime,'filter_profile':filter_profile,'interface':interface,'method_url':method_url,'filter_name':filter_name,'user_agent':user_agent1})
+        conn.db.insert({'id1':id1,'elapsed_time':elapsed_time,'client_ip':client_ip,'username':username,'date':date,'time':time,'httpstatus':httpstatus,'byte_transferred':int(byte_transferred),'mime':mime,'filter_profile':filter_profile,'interface':interface,'method_url':method_url,'filter_name':filter_name,'user_agent':user_agent1})
         #'user_agent':user_agent
 #print di
     tend = datetime.now()
